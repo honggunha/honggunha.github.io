@@ -574,7 +574,7 @@
     </ul>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
         <span id="themeIcon">🦉</span>
-        <span id="themeLabel">Night Owl</span>
+        <span id="themeLabel">Owl</span>
     </button>
 </nav>
 
@@ -893,11 +893,11 @@
         if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
             icon.textContent  = '🐦';
-            label.textContent = 'Early Bird';
+            label.textContent = 'Bird';
         } else {
             document.documentElement.removeAttribute('data-theme');
             icon.textContent  = '🦉';
-            label.textContent = 'Night Owl';
+            label.textContent = 'Owl';
         }
         localStorage.setItem('theme', theme);
     }
