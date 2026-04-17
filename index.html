@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gun Ha Hong — AI Researcher & Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --card: #21262d;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --accent-dim: rgba(88, 166, 255, 0.15);
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --text-dim: #484f58;
+            --gold: #f0c040;
+            --green: #3fb950;
+            --radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(13, 17, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        /* ── SECTIONS ── */
+        section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 56px;
+        }
+
+        .hero-inner {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--text-dim);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text .greeting {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.4rem;
+        }
+
+        .hero-text .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-text .desc {
+            color: var(--text-muted);
+            font-size: 0.93rem;
+            max-width: 500px;
+            margin-bottom: 2rem;
+            line-height: 1.75;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0d1117;
+        }
+
+        .btn-primary:hover { background: #79b8ff; }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── SECTION HEADING ── */
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title .num {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ── TIMELINE ── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .timeline-item:last-child { border-bottom: none; }
+
+        .timeline-date {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 500;
+            padding-top: 0.2rem;
+            line-height: 1.6;
+        }
+
+        .timeline-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-content .role {
+            color: var(--accent);
+            font-size: 0.78rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .timeline-content ul {
+            margin-top: 0.5rem;
+            padding-left: 1.1rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .timeline-content ul li { margin-bottom: 0.25rem; }
+
+        .badge {
+            display: inline-block;
+            padding: 0.1rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 600;
+        }
+
+        .badge-blue { background: var(--accent-dim); color: var(--accent); }
+        .badge-green { background: rgba(63, 185, 80, 0.15); color: var(--green); }
+
+        .gpa-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.4rem;
+            flex-wrap: wrap;
+        }
+
+        .gpa-item {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .gpa-item strong { color: var(--text); }
+
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .project-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.75rem;
+            transition: border-color 0.2s;
+        }
+
+        .project-card:hover { border-color: var(--accent); }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .project-award {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            background: rgba(240, 192, 64, 0.12);
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .project-period {
+            color: var(--text-dim);
+            font-size: 0.77rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            line-height: 1.65;
+        }
+
+        .project-features {
+            list-style: none;
+            margin-bottom: 1.25rem;
+        }
+
+        .project-features li {
+            color: var(--text-muted);
+            font-size: 0.83rem;
+            padding: 0.2rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .project-features li::before {
+            content: '›';
+            color: var(--accent);
+            flex-shrink: 0;
+            font-weight: 700;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tech-tag {
+            padding: 0.2rem 0.65rem;
+            border-radius: 6px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ── AWARDS ── */
+        .awards-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .award-item {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .award-item:last-child { border-bottom: none; }
+
+        .award-year {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            min-width: 56px;
+            font-family: monospace;
+        }
+
+        .award-icon { color: var(--gold); font-size: 0.85rem; }
+
+        .award-name {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+        }
+
+        .award-name strong { color: var(--text); }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .skill-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem 0.75rem;
+            text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .skill-item span {
+            font-size: 0.73rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ── CONTACT ── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1rem 1.25rem;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s;
+        }
+
+        .contact-item:hover { border-color: var(--accent); }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .contact-value {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-dim);
+            font-size: 0.78rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
+            .hero-inner { flex-direction: column; gap: 2rem; text-align: center; }
+            .hero-avatar { margin: 0 auto; }
+            .hero-text h1 { font-size: 2.2rem; }
+            .hero-text .desc { max-width: 100%; }
+            .hero-links { justify-content: center; }
+            .timeline-item { grid-template-columns: 1fr; gap: 0.35rem; }
+            .nav-links { display: none; }
+            section { padding: 4rem 1.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#hero" class="nav-logo">GHH</a>
+    <ul class="nav-links">
+        <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-inner">
+        <div class="hero-avatar">
+            <!-- 본인 사진으로 교체하려면: <img src="photo.jpg" alt="Gun Ha Hong"> -->
+            <i class="fa-solid fa-user"></i>
+        </div>
+        <div class="hero-text">
+            <p class="greeting">Hello, I'm</p>
+            <h1>Gun Ha Hong</h1>
+            <p class="subtitle">AI Researcher &amp; Developer</p>
+            <p class="desc">
+                UNIST AIGS 석사과정으로, Topology 기반 Video Understanding 모델을 연구하고 있습니다.
+                컴퓨터 비전, OCR, 음성인식 등 다양한 AI 프로젝트 경험을 보유하고 있습니다.
+            </p>
+            <div class="hero-links">
+                <a href="https://github.com/honggunha" class="btn btn-primary" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-github"></i> GitHub
+                </a>
+                <a href="mailto:gunhsaa@gmail.com" class="btn btn-outline">
+                    <i class="fa-solid fa-envelope"></i> Email
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+    <h2 class="section-title"><span class="num">01.</span> Education</h2>
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-date">2025.09 — Present</div>
+            <div class="timeline-content">
+                <h3>UNIST <span class="badge badge-blue">재학중</span></h3>
+                <p class="role">AI Graduate School (AIGS)</p>
+                <p>석사과정 — AI &amp; Video Understanding 연구</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2018.02 — 2025.08</div>
+            <div class="timeline-content">
+                <h3>전북대학교</h3>
+                <p class="role">컴퓨터공학부</p>
+                <div class="gpa-row">
+                    <span class="gpa-item">전체 학점 <strong>4.08 / 4.5</strong></span>
+                    <span class="gpa-item">전공 학점 <strong>4.32 / 4.5</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2023.08 — 2024.05</div>
+            <div class="timeline-content">
+                <h3>University of Missouri Kansas City</h3>
+                <p class="role">교환학생</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2015.03 — 2018.02</div>
+            <div class="timeline-content">
+                <h3>첨단고등학교</h3>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+    <h2 class="section-title"><span class="num">02.</span> Experience</h2>
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <div class="timeline-date">2025.04 — Present</div>
+            <div class="timeline-content">
+                <h3>UNIST LAIT LAB <span class="badge badge-blue">재직중</span></h3>
+                <p class="role">석사연구생</p>
+                <ul>
+                    <li>Topology를 이용한 Video Understanding Model 개발</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2024.07 — 2025.10</div>
+            <div class="timeline-content">
+                <h3>Google AI Bootcamp</h3>
+                <p class="role">참가자</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">2024.06 — 2025.02</div>
+            <div class="timeline-content">
+                <h3>전북대학교 MACS LAB</h3>
+                <p class="role">학부연구생</p>
+                <ul>
+                    <li>OCR 기반 웹툰 효과음 번역 모델 개발</li>
+                    <li>웹툰 효과음 자동 생성 툴 개발</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <h2 class="section-title"><span class="num">03.</span> Projects</h2>
+    <div class="projects-grid">
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3>다국어 웹툰 생성을 위한 AI 데이터셋 구축 및 이미지/텍스트 인식 모델 개발</h3>
+                <span class="project-award"><i class="fa-solid fa-trophy"></i> 캡스톤 대상</span>
+            </div>
+            <p class="project-period">2024.09 — 2024.12 &nbsp;|&nbsp; 전북대학교 캡스톤 경진대회</p>
+            <p class="project-desc">
+                웹툰 번역의 높은 비용 문제를 해결하기 위해 OCR 기반 대사 인식과 효과음 탐지를 결합한
+                End-to-End 자동 웹툰 번역 파이프라인을 구현했습니다.
+            </p>
+            <ul class="project-features">
+                <li>웹툰 효과음 자동 생성 툴 개발</li>
+                <li>Grounding DINO + PaddleOCR 기반 효과음/대사 탐지 모델 개발</li>
+                <li>좌표 기반 텍스트 제거 및 재생성 파이프라인 설계</li>
+                <li>End-to-End 자동화 파이프라인으로 통합</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Grounding DINO</span>
+                <span class="tech-tag">PaddleOCR</span>
+                <span class="tech-tag">CLOVA OCR</span>
+                <span class="tech-tag">IOPaint</span>
+                <span class="tech-tag">Roboflow</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3>ML 기반 Glass Defect Detection</h3>
+                <span class="project-award"><i class="fa-solid fa-medal"></i> Corning 2nd Award</span>
+            </div>
+            <p class="project-period">2024.06 — 2024.07 &nbsp;|&nbsp; CORNING AI CHALLENGE 2024</p>
+            <p class="project-desc">
+                유리 이미지에서 결함의 위치와 종류를 검출하는 ML 기반 비전 시스템.
+                VAE 기반 데이터 증강과 YOLOv8 + EfficientNet Hybrid 모델로 검출 성능을 최적화했습니다.
+            </p>
+            <ul class="project-features">
+                <li>데이터 부족 문제 해결을 위한 VAE 기반 이미지 생성 모델 개발</li>
+                <li>YOLOv8 + EfficientNet Hybrid 모델 설계 (mAP50: 0.862)</li>
+                <li>Fine-tuning 및 Inference 자동화 UI 개발 (FastAPI)</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">YOLOv8</span>
+                <span class="tech-tag">EfficientNet</span>
+                <span class="tech-tag">Grounding DINO</span>
+                <span class="tech-tag">FastAPI</span>
+                <span class="tech-tag">Roboflow</span>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <div class="project-header">
+                <h3>구음 장애 발음 특성을 고려한 음성 인식 앱 (mAI Help U)</h3>
+                <span class="project-award"><i class="fa-solid fa-award"></i> 해커톤 입선</span>
+            </div>
+            <p class="project-period">2024.06 — 2024.10 &nbsp;|&nbsp; 장애인 분야 해커톤 (한국장애인재단)</p>
+            <p class="project-desc">
+                구음장애 환자의 발음 문제를 보완하기 위해 OpenAI Whisper 기반 개인화 음성인식 모바일 앱을 개발했습니다.
+                사용자별 발음 데이터를 Firebase에 축적하여 개인 맞춤형 Whisper 모델 파인튜닝을 구현했습니다.
+            </p>
+            <ul class="project-features">
+                <li>구음장애 환자 발음 데이터셋 구축 및 Whisper AI 파인튜닝</li>
+                <li>Firebase 연동 실시간 발음 데이터 저장 및 사용자별 관리</li>
+                <li>사용자 발음 특성 기반 Re-Finetuning 파이프라인 설계</li>
+            </ul>
+            <div class="tech-stack">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Android Studio</span>
+                <span class="tech-tag">Firebase</span>
+                <span class="tech-tag">OpenAI Whisper</span>
+                <span class="tech-tag">FastAPI</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+    <h2 class="section-title"><span class="num">04.</span> Awards</h2>
+    <div class="awards-list">
+
+        <div class="award-item">
+            <span class="award-year">2024.12</span>
+            <i class="fa-solid fa-trophy award-icon"></i>
+            <span class="award-name">캡스톤 경진대회 <strong>대상</strong> — 전북대학교 소프트웨어중심사업단</span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2024.12</span>
+            <i class="fa-solid fa-graduation-cap award-icon"></i>
+            <span class="award-name">SW전공 <strong>J-Point 장학생</strong> — 전북대학교</span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2024.11</span>
+            <i class="fa-solid fa-medal award-icon"></i>
+            <span class="award-name">장애인 분야 해커톤 <strong>입선</strong> — 한국장애인재단</span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2024.07</span>
+            <i class="fa-solid fa-medal award-icon"></i>
+            <span class="award-name">CORNING AI CHALLENGE <strong>2등상</strong> — CORNING</span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2023.11</span>
+            <i class="fa-solid fa-award award-icon"></i>
+            <span class="award-name">K-Hackathon 11 <strong>우수상</strong></span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2023.08</span>
+            <i class="fa-solid fa-star award-icon"></i>
+            <span class="award-name">성적우수 장학생 — 전북대학교</span>
+        </div>
+        <div class="award-item">
+            <span class="award-year">2022.08</span>
+            <i class="fa-solid fa-star award-icon"></i>
+            <span class="award-name">성적우수 장학생 — 전북대학교</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+    <h2 class="section-title"><span class="num">05.</span> Skills</h2>
+    <div class="skills-grid">
+        <div class="skill-item">
+            <i class="devicon-python-plain colored"></i>
+            <span>Python</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-pytorch-plain colored"></i>
+            <span>PyTorch</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-opencv-plain colored"></i>
+            <span>OpenCV</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-cplusplus-plain colored"></i>
+            <span>C++</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-figma-plain colored"></i>
+            <span>Figma</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-androidstudio-plain colored"></i>
+            <span>Android Studio</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-firebase-plain colored"></i>
+            <span>Firebase</span>
+        </div>
+        <div class="skill-item">
+            <i class="devicon-fastapi-plain colored"></i>
+            <span>FastAPI</span>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+    <h2 class="section-title"><span class="num">06.</span> Contact</h2>
+    <div class="contact-grid">
+        <a href="mailto:gunhsaa@gmail.com" class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">gunhsaa@gmail.com</div>
+            </div>
+        </a>
+        <a href="https://github.com/honggunha" class="contact-item" target="_blank" rel="noopener">
+            <i class="fa-brands fa-github"></i>
+            <div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">@honggunha</div>
+            </div>
+        </a>
+        <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+                <div class="contact-label">Phone</div>
+                <div class="contact-value">010-9567-8835</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Gun Ha Hong. Built with HTML &amp; CSS.</p>
+</footer>
+
+</body>
+</html>
