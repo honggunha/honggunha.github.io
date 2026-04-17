@@ -24,6 +24,22 @@
             --gold: #f0c040;
             --green: #3fb950;
             --radius: 12px;
+            --nav-bg: rgba(13, 17, 23, 0.85);
+        }
+
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --surface: #f6f8fa;
+            --card: #ffffff;
+            --border: #d0d7de;
+            --accent: #0969da;
+            --accent-dim: rgba(9, 105, 218, 0.1);
+            --text: #24292f;
+            --text-muted: #57606a;
+            --text-dim: #8c959f;
+            --gold: #bf8700;
+            --green: #1a7f37;
+            --nav-bg: rgba(255, 255, 255, 0.85);
         }
 
         html { scroll-behavior: smooth; }
@@ -39,7 +55,7 @@
         nav {
             position: fixed;
             top: 0; left: 0; right: 0;
-            background: rgba(13, 17, 23, 0.85);
+            background: var(--nav-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
@@ -74,6 +90,29 @@
         }
 
         .nav-links a:hover { color: var(--text); }
+
+        .theme-toggle {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 0.3rem 0.75rem;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 600;
+            transition: border-color 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
 
         /* ── SECTIONS ── */
         section {
@@ -525,6 +564,7 @@
 <nav>
     <a href="#hero" class="nav-logo">GHH</a>
     <ul class="nav-links">
+
         <li><a href="#education">Education</a></li>
         <li><a href="#experience">Experience</a></li>
         <li><a href="#projects">Projects</a></li>
@@ -532,6 +572,10 @@
         <li><a href="#skills">Skills</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span id="themeIcon">🦉</span>
+        <span id="themeLabel">Night Owl</span>
+    </button>
 </nav>
 
 <!-- HERO -->
@@ -840,6 +884,32 @@
 <footer>
     <p>© 2026 Gun Ha Hong. Built with HTML &amp; CSS.</p>
 </footer>
+
+<script>
+    const icon  = document.getElementById('themeIcon');
+    const label = document.getElementById('themeLabel');
+
+    function applyTheme(theme) {
+        if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            icon.textContent  = '🐦';
+            label.textContent = 'Early Bird';
+        } else {
+            document.documentElement.removeAttribute('data-theme');
+            icon.textContent  = '🦉';
+            label.textContent = 'Night Owl';
+        }
+        localStorage.setItem('theme', theme);
+    }
+
+    function toggleTheme() {
+        const current = localStorage.getItem('theme') || 'dark';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // 페이지 로드 시 저장된 테마 복원
+    applyTheme(localStorage.getItem('theme') || 'dark');
+</script>
 
 </body>
 </html>
