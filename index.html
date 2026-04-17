@@ -545,6 +545,84 @@
             border-top: 1px solid var(--border);
         }
 
+        /* ── THEME TRANSITION ── */
+        body, nav, .project-card, .skill-item, .contact-item, .award-item {
+            transition: background-color 0.6s ease, border-color 0.6s ease, color 0.4s ease;
+        }
+
+        #theme-overlay {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        #theme-overlay.sunrise {
+            animation: sunrise 1.4s ease-out forwards;
+        }
+
+        #theme-overlay.sunset {
+            animation: sunset 1.4s ease-out forwards;
+        }
+
+        @keyframes sunrise {
+            0% {
+                opacity: 1;
+                background: linear-gradient(to top,
+                    #ff8c00 0%,
+                    #c0392b 15%,
+                    #1a0a2e 45%,
+                    #0d1117 100%
+                );
+            }
+            45% {
+                opacity: 1;
+                background: linear-gradient(to top,
+                    #ffd700 0%,
+                    #ff8c00 18%,
+                    #87ceeb 55%,
+                    #e8f4fd 100%
+                );
+            }
+            100% {
+                opacity: 0;
+                background: linear-gradient(to top,
+                    #ffffff 0%,
+                    #87ceeb 60%,
+                    #ffffff 100%
+                );
+            }
+        }
+
+        @keyframes sunset {
+            0% {
+                opacity: 1;
+                background: linear-gradient(to top,
+                    #ffd700 0%,
+                    #ff8c00 20%,
+                    #87ceeb 55%,
+                    #ffffff 100%
+                );
+            }
+            45% {
+                opacity: 1;
+                background: linear-gradient(to top,
+                    #ff4500 0%,
+                    #8b1a00 18%,
+                    #1a0a2e 50%,
+                    #0d1117 100%
+                );
+            }
+            100% {
+                opacity: 0;
+                background: linear-gradient(to top,
+                    #0d1117 0%,
+                    #161b22 100%
+                );
+            }
+        }
+
         /* ── SCROLLBAR ── */
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
@@ -886,15 +964,27 @@
     </div>
 </section>
 
+<div id="theme-overlay"></div>
+
 <footer>
     <p>© 2026 Gun Ha Hong. Built with HTML &amp; CSS.</p>
 </footer>
 
 <script>
-    const icon  = document.getElementById('themeIcon');
-    const label = document.getElementById('themeLabel');
+    const icon    = document.getElementById('themeIcon');
+    const label   = document.getElementById('themeLabel');
+    const overlay = document.getElementById('theme-overlay');
 
-    function applyTheme(theme) {
+    function applyTheme(theme, animate = false) {
+        if (animate) {
+            overlay.className = '';
+            void overlay.offsetWidth; // reflow로 애니메이션 재실행
+            overlay.className = theme === 'light' ? 'sunrise' : 'sunset';
+            overlay.addEventListener('animationend', () => {
+                overlay.className = '';
+            }, { once: true });
+        }
+
         if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
             icon.textContent  = '🐦';
@@ -909,11 +999,11 @@
 
     function toggleTheme() {
         const current = localStorage.getItem('theme') || 'dark';
-        applyTheme(current === 'dark' ? 'light' : 'dark');
+        applyTheme(current === 'dark' ? 'light' : 'dark', true);
     }
 
-    // 페이지 로드 시 저장된 테마 복원
-    applyTheme(localStorage.getItem('theme') || 'dark');
+    // 페이지 로드 시 저장된 테마 복원 (애니메이션 없이)
+    applyTheme(localStorage.getItem('theme') || 'dark', false);
 </script>
 
 </body>
